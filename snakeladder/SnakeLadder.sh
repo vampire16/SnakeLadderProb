@@ -3,43 +3,69 @@
 echo "Welcome"
 
 #CONSTANT 
-PLAYER=1
+PLAYER1=1
+PLAYER2=2
+playerIndex=1
 NOPLAY=0
 SNAKE=1
 LADDER=2
 
 #VARIABLES
-position=0
-count=0
+position1=0
+position2=0
+count1=0
+count2=0
 index=1
 
 declare -A DiceDictionary
 
-#CHECKING FOR OPTIONS AND REPEATING DIE TILL PLAYER REACHES THE WINNING POSITION
-while (( position < 100 ))
+#CHECKING WHICH PLAYER WON THE GAME
+while (( position1 < 100 && position2 < 100))
 do
-	Die=$((RANDOM%6 + 1))
-	count=$(($count+1))
-	randomCheck=$((RANDOM%3))
-	case $randomCheck in
-	$NOPLAY)
-		position=$(($position+$NOPLAY))
-		;;
-	$SNAKE)
-		position=$(($position-$Die))
-		if (( position < 0 )); then position=0; fi
-		;;
-	$LADDER)
-		position=$(($position+$Die))
-		if (( position > 100 )); then position=$(($position-$Die)); fi
-		;;
-	esac
-	DiceDictionary[$count]=$position
+	for (( playerIndex=1; playerIndex<=PLAYER2; playerIndex++ ))
+	do
+		if (( playerIndex == 1 ))
+		then
+			Die=$((RANDOM%6 + 1))
+			count1=$(($count1+1))
+			randomCheck=$((RANDOM%3))
+			case $randomCheck in
+			$NOPLAY)
+				position1=$(($position1+$NOPLAY))
+				;;
+			$SNAKE)
+				position1=$(($position1-$Die))
+				if (( position1 < 0 )); then position1=0; fi
+				;;
+			$LADDER)
+				position1=$(($position1+$Die))
+				if (( position1 > 100 )); then position1=$(($position1-$Die)); fi
+				;;
+			esac
+		else
+			Die=$((RANDOM%6 + 1))
+         count2=$(($count2+1))
+         randomCheck=$((RANDOM%3))
+         case $randomCheck in
+         $NOPLAY)
+            position2=$(($position2+$NOPLAY))
+            ;;
+         $SNAKE)
+            position2=$(($position2-$Die))
+            if (( position2 < 0 )); then position2=0; fi
+            ;;
+         $LADDER)
+            position2=$(($position2+$Die))
+            if (( position2 > 100 )); then position2=$(($position2-$Die)); fi
+            ;;
+         esac
+		fi
+	done
 done
 
-#PRINTING NUMBER OF DICE AND POSITION AFTER EVERY DICE ROLE
-while (( $index <= $count ))
-do
-	echo "$index---->${DiceDictionary[$index]}"
-	index=$(($index+1))
-done
+if (( position1 == 100 ))
+then
+	echo "player one won"
+else
+	echo "player two won"
+fi
