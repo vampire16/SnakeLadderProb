@@ -10,20 +10,21 @@ LADDER=2
 #VARIABLES
 position=0
 
-#RANDOM FUNCTION
-Die=$((RANDOM%6 + 1))
-echo "$Die"
-
 #CHECKING FOR OPTIONS
-randomCheck=$((RANDOM%3))
-case $randomCheck in
-$NOPLAY)
-	NOPLAY=$(($position+$NOPLAY))
-	;;
-$SNAKE)
-	SNAKE=$(($position-$Die))
-	;;
-$LADDER)
-	LADDER=$(($position+$Die))
-	;;
-esac
+while (( position < 100 ))
+do
+	Die=$((RANDOM%6 + 1))
+	randomCheck=$((RANDOM%3))
+	case $randomCheck in
+	$NOPLAY)
+		position=$(($position+$NOPLAY))
+		;;
+	$SNAKE)
+		position=$(($position-$Die))
+		if (( position < 0 )); then position=0; fi
+		;;
+	$LADDER)
+		position=$(($position+$Die))
+		;;
+	esac
+done
