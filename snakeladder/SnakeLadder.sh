@@ -5,7 +5,6 @@ echo "Welcome"
 #CONSTANT 
 PLAYER1=1
 PLAYER2=2
-playerIndex=1
 NOPLAY=0
 SNAKE=1
 LADDER=2
@@ -55,7 +54,7 @@ do
 				if (( position2 < 0 )); then position2=0; fi
 				;;
 			$LADDER)
-			position2=$(($position2+$Die))
+				position2=$(($position2+$Die))
 				if (( position2 > 100 )); then position2=$(($position2-$Die)); fi
 				;;
 			esac
@@ -65,7 +64,7 @@ done
 
 if (( position1 == 100 ))
 then
-	echo "player one won"
+	echo "Player one won"
 else
-	echo "player two won"
+	echo "Player two won"
 fi
