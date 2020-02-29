@@ -1,6 +1,7 @@
 #!/bin/bash -x
 
 echo "Welcome"
+
 #CONSTANT 
 PLAYER=1
 NOPLAY=0
@@ -25,6 +26,7 @@ do
 		;;
 	$LADDER)
 		position=$(($position+$Die))
+		if (( position > 100 )); then position=$(($position-$Die)); fi
 		;;
 	esac
 done
