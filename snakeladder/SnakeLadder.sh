@@ -5,5 +5,5 @@ echo "Welcome"
 PLAYER=1
 
 #VARIABLES
-POSITION=0
+position=0
 
